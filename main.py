@@ -4,6 +4,7 @@ import requests
 import random
 import datetime
 import threading
+import os
 
 usernames = []
 
@@ -75,8 +76,8 @@ def generatetxt(results):
     with open(filename, "w") as txt:
         for result in results:
             txt.write(result + "\n")
-
-    result_label.config(text=f"Txt generated at MCNameFinder Folder at time:\n {datetime.datetime.now()}")
+    path = os.getcwd()
+    result_label.config(text=f"Txt generated at {os.path.abspath(os.path.join(path, os.pardir))} Folder at time:\n {datetime.datetime.now()}")
 
 # GUI SETUP
 root = tk.Tk()
