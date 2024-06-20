@@ -1,7 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
 import requests
-import string
 import random
 import datetime
 import threading
