@@ -28,5 +28,9 @@ git clone https://github.com/RaynorDev/MCNameFinder.git
 cd MCNameFinder
 pip install -r requirements.txt
 ```
+### Waiting Time
+The higher the amount of names you selected, the more time it takes
+Should take no longer then 1 minute
+
 ## Mac
-if you are on mac dont download the exe, just clone the project and run the main.py
+If you are on mac dont download the exe, just clone the project and run the main.py
