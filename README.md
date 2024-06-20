@@ -23,5 +23,6 @@ Clone the repository and install the dependencies:
 git clone https://github.com/RaynorDev/MCNameFinder.git
 cd MCNameFinder
 pip install -r requirements.txt
-
+```
 ## Mac
+if you are on mac dont download the exe, just clone the project and run the main.py
