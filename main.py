@@ -90,7 +90,7 @@ frame_options = tk.Frame(root)
 frame_options.pack(pady=20)
 
 option_var = tk.StringVar(value="8")
-option_box = ttk.OptionMenu(frame_options, option_var, "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15")
+option_box = ttk.OptionMenu(frame_options, option_var, "4","4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15")
 option_box.pack()
 
 label_length = tk.Label(frame_options, text="Username Length")
