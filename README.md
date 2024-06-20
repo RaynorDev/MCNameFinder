@@ -29,7 +29,8 @@ cd MCNameFinder
 pip install -r requirements.txt
 ```
 ### Waiting Time
-The higher the amount of names you selected, the more time it takes
+The higher the amount of names you selected, the more time it takes.
+
 Should take no longer then 1 minute
 
 ## Mac
