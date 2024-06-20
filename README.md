@@ -23,3 +23,5 @@ Clone the repository and install the dependencies:
 git clone https://github.com/RaynorDev/MCNameFinder.git
 cd MCNameFinder
 pip install -r requirements.txt
+
+## Mac
