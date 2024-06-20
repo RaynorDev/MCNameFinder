@@ -4,7 +4,8 @@ MCNameFinder is a Python application that generates Minecraft usernames and chec
 
 ## Usage
 
-![image](https://github.com/RaynorDev/MCNameFinder/assets/84258177/d28fc3a3-02a0-49fd-8185-6e8c2d8f8bca)
+![image](https://github.com/RaynorDev/MCNameFinder/assets/84258177/9199f80e-4435-4129-9d37-b4fd07eb227e)
+
 
 
 ### Username Length
