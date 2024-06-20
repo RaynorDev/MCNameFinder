@@ -97,32 +97,36 @@ user_box.pack()
 label_length = tk.Label(frame_options, text="Username Length")
 label_length.pack()
 
-frame_modify = tk.Frame(root)
-frame_modify.pack(pady=10)
-
-start_label = tk.Label(frame_modify, text="Start with:")
-start_label.grid(row=0, column=0)
-
-start_entry = tk.Entry(frame_modify, width=5)
-start_entry.grid(row=0, column=1)
-
-end_label = tk.Label(frame_modify, text="End with:")
-end_label.grid(row=0, column=2)
-
-end_entry = tk.Entry(frame_modify, width=5)
-end_entry.grid(row=0, column=3)
-
 amount_var = tk.StringVar(value="8")
 amount_box = ttk.OptionMenu(frame_options, amount_var, "10","10", "20", "30", "40", "60", "80","100")
 amount_box.pack(pady=5)
 
-label_length = tk.Label(frame_options, text="Amount Of Names")
-label_length.pack()
+label_amount = tk.Label(frame_options, text="Amount Of Names")
+label_amount.pack()
 
 check_button = tk.Button(root, text="Generate and Check Usernames", command=check_username)
 check_button.pack(pady=10)
 
 result_label = tk.Label(root, text="")
 result_label.pack(pady=10)
+
+# Optional features frame
+frame_optional = tk.Frame(root)
+frame_optional.pack(pady=20)
+
+optional_label = tk.Label(frame_optional, text="Optional Features")
+optional_label.grid(row=0, columnspan=4, pady=(0, 10))
+
+start_label = tk.Label(frame_optional, text="Start with:")
+start_label.grid(row=1, column=0, padx=(0, 10))
+
+start_entry = tk.Entry(frame_optional, width=5)
+start_entry.grid(row=1, column=1)
+
+end_label = tk.Label(frame_optional, text="End with:")
+end_label.grid(row=1, column=2, padx=(10, 10))
+
+end_entry = tk.Entry(frame_optional, width=5)
+end_entry.grid(row=1, column=3)
 
 root.mainloop()
