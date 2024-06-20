@@ -76,7 +76,7 @@ def generatetxt(results):
     filename = f"MCNameFinder_{timestamp}.txt"
 
     with open(filename, "w") as txt:
-        txt.write("DELETED ALL THE ERRORED NAMES")
+        txt.write("DELETED ALL THE ERRORED NAMES \n")
         for result in results:
             txt.write(result + "\n")
     path = os.getcwd()
@@ -113,7 +113,7 @@ end_entry = tk.Entry(frame_modify, width=5)
 end_entry.grid(row=0, column=3)
 
 amount_var = tk.StringVar(value="8")
-amount_box = ttk.OptionMenu(frame_options, amount_var, "10","10", "20", "30", "40", "60", "80")
+amount_box = ttk.OptionMenu(frame_options, amount_var, "10","10", "20", "30", "40", "60", "80","100")
 amount_box.pack(pady=5)
 
 label_length = tk.Label(frame_options, text="Amount Of Names")
