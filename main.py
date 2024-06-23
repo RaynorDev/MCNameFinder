@@ -1,10 +1,12 @@
 import tkinter as tk
 from tkinter import ttk
-import requests
+import aiohttp
+import asyncio
 import random
 import datetime
 import threading
 import os
+from concurrent.futures import ThreadPoolExecutor
 
 usernames = []
 
@@ -12,13 +14,10 @@ vowels = 'aeiou'
 consonants = 'bcdfghjklmnpqrstvwxyz'
 
 # Generates the username
-def generate_random_username(length):
+def generate_random_username(length, num_usernames):
     usernames.clear()
-    num_usernames = int(amount_var.get())
-    # Generates usernames
     for _ in range(num_usernames):
         result = []
-        # Using this method to generate clean usernames
         for i in range(length):
             if i % 2 == 0:
                 result.append(random.choice(consonants))
@@ -26,50 +25,51 @@ def generate_random_username(length):
                 result.append(random.choice(vowels))
         usernames.append(''.join(result))
 
-
 # Modifying the username to your liking
 def modify_username(username, start_letter, end_letter):
-    # Set first letter
-    if start_letter and username:
+    if start_letter:
         username = start_letter + username[1:]
-    # Set last letter
     if end_letter and len(username) > 1:
         username = username[:-1] + end_letter
     return username
 
 def check_username():
-    result_label.config(text=f"Generating txt please wait...")
+    result_label.config(text=f"Generating txt, please wait...")
     length = int(user_var.get())
-    generate_random_username(length)
+    num_usernames = int(amount_var.get())
+    generate_random_username(length, num_usernames)
 
     start_letter = start_entry.get().strip().lower()
     end_letter = end_entry.get().strip().lower()
 
-    # Use threading to run API checks in the background, Decreases lag
+    # Use threading to run API checks in the background
     thread = threading.Thread(target=check_usernames_background, args=(usernames, start_letter, end_letter))
     thread.start()
+
+async def fetch_username_status(session, username):
+    url = f"https://api.mojang.com/users/profiles/minecraft/{username}"
+    async with session.get(url) as response:
+        if response.status == 404:
+            return f"{username}: is available"
+        elif response.status == 200:
+             return f"{username}: is not available"
+        return None
+
+async def check_usernames_async(modified_usernames):
+    async with aiohttp.ClientSession() as session:
+        tasks = [fetch_username_status(session, username) for username in modified_usernames]
+        results = await asyncio.gather(*tasks)
+        return [result for result in results if result]
 
 def check_usernames_background(usernames, start_letter, end_letter):
     modified_usernames = [modify_username(username, start_letter, end_letter) for username in usernames]
 
-    results = []
-
-    # Appending usernames with their status to results list
-    for username in modified_usernames:
-        url = f"https://api.mojang.com/users/profiles/minecraft/{username}"
-        response = requests.get(url)
-        if response.status_code == 200:
-            results.append(f"{username}: is not available")
-        elif response.status_code == 404:
-            results.append(f"{username}: is available")
-        else:
-            pass
-            # you could do this but its less bloat if you dont
-            #results.append(f"{username}: Error checking status")
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    results = loop.run_until_complete(check_usernames_async(modified_usernames))
 
     generatetxt(results)
 
-# Generating the txt with the usernames
 def generatetxt(results):
     now = datetime.datetime.now()
     timestamp = now.strftime("%Y-%m-%d_%H-%M-%S")
@@ -91,14 +91,14 @@ frame_options = tk.Frame(root)
 frame_options.pack(pady=20)
 
 user_var = tk.StringVar(value="8")
-user_box = ttk.OptionMenu(frame_options, user_var, "4","4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15")
+user_box = ttk.OptionMenu(frame_options, user_var, "4", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15")
 user_box.pack()
 
 label_length = tk.Label(frame_options, text="Username Length")
 label_length.pack()
 
 amount_var = tk.StringVar(value="8")
-amount_box = ttk.OptionMenu(frame_options, amount_var, "10","10", "20", "30", "40", "60", "80","100")
+amount_box = ttk.OptionMenu(frame_options, amount_var, "10", "10", "20", "30", "40", "60", "80", "100")
 amount_box.pack(pady=5)
 
 label_amount = tk.Label(frame_options, text="Amount Of Names")
