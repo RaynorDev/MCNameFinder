@@ -30,6 +30,12 @@ cd MCNameFinder
 pip install -r requirements.txt
 ```
 
+## Run
+
+```bash
+python main.py
+```
+
 ### Waiting Time Increases with More Names Selected
 
 Selecting a higher number of names increases the processing time.
