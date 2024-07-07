@@ -52,17 +52,16 @@ def check_username():
 def check_usernames_background(usernames, start_letter, end_letter):
     modified_usernames = [modify_username(username, start_letter, end_letter) for username in usernames]
 
-    results = []
+    results = set()
 
     # Appending usernames with their status to results list
     for username in modified_usernames:
         url = f"https://api.mojang.com/users/profiles/minecraft/{username}"
         response = requests.get(url)
         if response.status_code == 200:
-            pass
-            #results.append(f"{username}: is not available")
+            results.add(f"{username}: is not available")
         elif response.status_code == 404:
-            results.append(f"{username}: is available")
+            results.add(f"{username}: is available")
         else:
             pass
             # you could do this but its less bloat if you dont
